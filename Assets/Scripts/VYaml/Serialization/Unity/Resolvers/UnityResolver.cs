@@ -50,7 +50,7 @@ namespace VYaml.Serialization.Unity.Resolvers
         Formatter = null;
       }
     }
-#if !VYAML_UNITYRESOLVER_AUTOINIT
+#if !VYAML_UNITYRESOLVER_NOTAUTOINIT
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 #if UNITY_EDITOR
     [InitializeOnLoadMethod]
@@ -63,6 +63,6 @@ namespace VYaml.Serialization.Unity.Resolvers
         Instance
       });
     }
-  }
 #endif
+  }
 }
