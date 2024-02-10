@@ -5,6 +5,7 @@ using UnityEngine;
 using VYaml.Serialization.Unity.Formatters;
 using VYaml.Serialization.Unity.Formatters.Geometry;
 using VYaml.Serialization.Unity.Formatters.Graphics;
+using VYaml.Serialization.Unity.Formatters.Hash;
 using VYaml.Serialization.Unity.Formatters.Math;
 using VYaml.Serialization.Unity.Formatters.NativeArray;
 
@@ -28,6 +29,8 @@ namespace VYaml.Serialization.Unity.Resolvers
 
       { typeof(RefreshRate), RefreshRateFormatter.Instance },
       { typeof(Resolution), ResolutionFormatter.Instance },
+
+      { typeof(Hash128), Hash128Formatter.Instance },
 
       { typeof(Bounds), BoundsFormatter.Instance },
       { typeof(BoundsInt), BoundsIntFormatter.Instance },
