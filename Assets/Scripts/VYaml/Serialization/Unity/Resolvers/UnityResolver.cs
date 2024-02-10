@@ -15,6 +15,7 @@ namespace VYaml.Serialization.Unity.Resolvers
     {
       { typeof(Color), ColorFormatter.Instance },
       { typeof(Color32), Color32Formatter.Instance },
+      { typeof(Matrix4x4), Matrix4x4Formatter.Instance },
       { typeof(Quaternion), QuaternionFormatter.Instance },
       { typeof(Vector2), Vector2Formatter.Instance },
       { typeof(Vector2Int), Vector2IntFormatter.Instance },
@@ -30,9 +31,66 @@ namespace VYaml.Serialization.Unity.Resolvers
       { typeof(RectOffset), RectOffsetFormatter.Instance }
     };
 
+    private static readonly Dictionary<Type, Type> KnownGenericTypes = new();
+
     public IYamlFormatter<T>? GetFormatter<T>()
     {
       return FormatterCache<T>.Formatter;
+    }
+
+    private static object? TryCreateGenericFormatter(Type type)
+    {
+      Type? formatterType = null;
+
+      if (type.IsArray)
+      {
+        if (type.IsSZArray)
+        {
+          formatterType = typeof(ArrayFormatter<>).MakeGenericType(type.GetElementType()!);
+        }
+        else
+        {
+          var rank = type.GetArrayRank();
+          switch (rank)
+          {
+            // case 2:
+            //     formatterType = typeof(TwoDimensionalArrayFormatter<>).MakeGenericType(type.GetElementType()!);
+            //     break;
+            // case 3:
+            //     formatterType = typeof(ThreeDimensionalArrayFormatter<>).MakeGenericType(type.GetElementType()!);
+            //     break;
+            // case 4:
+            //     formatterType = typeof(FourDimensionalArrayFormatter<>).MakeGenericType(type.GetElementType()!);
+            //     break;
+            // default:
+            //     break; // not supported
+          }
+        }
+      }
+      else if (type.IsEnum)
+      {
+        formatterType = typeof(EnumAsStringFormatter<>).MakeGenericType(type);
+      }
+      else
+      {
+        formatterType = TryCreateGenericFormatterType(type, KnownGenericTypes);
+      }
+
+      if (formatterType != null) return Activator.CreateInstance(formatterType);
+      return null;
+    }
+
+    private static Type? TryCreateGenericFormatterType(Type type, IDictionary<Type, Type> knownTypes)
+    {
+      if (type.IsGenericType)
+      {
+        var genericDefinition = type.GetGenericTypeDefinition();
+
+        if (knownTypes.TryGetValue(genericDefinition, out var formatterType))
+          return formatterType.MakeGenericType(type.GetGenericArguments());
+      }
+
+      return null;
     }
 
     private static class FormatterCache<T>
@@ -50,19 +108,5 @@ namespace VYaml.Serialization.Unity.Resolvers
         Formatter = null;
       }
     }
-#if !VYAML_UNITYRESOLVER_NOTAUTOINIT
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-#if UNITY_EDITOR
-    [InitializeOnLoadMethod]
-#endif
-    internal static void Init()
-    {
-      YamlSerializer.DefaultOptions.Resolver = CompositeResolver.Create(new IYamlFormatterResolver[]
-      {
-        StandardResolver.Instance,
-        Instance
-      });
-    }
-#endif
   }
 }
