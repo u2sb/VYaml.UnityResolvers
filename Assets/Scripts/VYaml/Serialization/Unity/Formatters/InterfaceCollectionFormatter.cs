@@ -4,9 +4,9 @@ using VYaml.Parser;
 namespace VYaml.Serialization.Unity.Formatters
 {
   public class InterfaceCollectionFormatter<TR, T>
-    : InterfaceEnumerableFormatter<TR> where TR : class, ICollection<T>, new()
+    : InterfaceEnumerableFormatter<TR, T> where TR : class, ICollection<T>, new()
   {
-    public new virtual TR? Deserialize(ref YamlParser parser, YamlDeserializationContext context)
+    public override TR? Deserialize(ref YamlParser parser, YamlDeserializationContext context)
     {
       if (parser.IsNullScalar())
       {
