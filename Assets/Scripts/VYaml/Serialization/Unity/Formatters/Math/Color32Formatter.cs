@@ -12,7 +12,7 @@ namespace VYaml.Serialization.Unity.Formatters.Math
     public void Serialize(ref Utf8YamlEmitter emitter, Color32 value, YamlSerializationContext context)
     {
       var b = new[] { value.r, value.g, value.b, value.a };
-      Utils.WriteByteArrayWithFlowStyle(ref emitter, b, context);
+      b.WriteByteArrayWithFlowStyle(ref emitter);
     }
 
     public Color32 Deserialize(ref YamlParser parser, YamlDeserializationContext context)

@@ -40,9 +40,9 @@ namespace VYaml.Serialization.Unity.Formatters.Geometry
 
                 if (key != null)
                 {
-                    if (key.Equals(nameof(BoundsInt.position), StringComparison.OrdinalIgnoreCase))
+                    if (key.EqualsKey(nameof(BoundsInt.position)))
                         boundsInt.position = value;
-                    else if (key.Equals(nameof(BoundsInt.size), StringComparison.OrdinalIgnoreCase))
+                    else if (key.EqualsKey(nameof(BoundsInt.size)))
                         boundsInt.size = value;
                 }
             }

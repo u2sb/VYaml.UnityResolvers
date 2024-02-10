@@ -23,7 +23,7 @@ namespace VYaml.Serialization.Unity.Formatters.Math
 
             emitter.BeginSequence();
             emitter.WriteRaw(ReadOnlySpan<byte>.Empty, false, true);
-            foreach (var f in fs) Utils.WriteFloatArrayWithFlowStyle(ref emitter, f, context);
+            foreach (var f in fs) f.WriteFloatArrayWithFlowStyle(ref emitter);
             emitter.EndSequence();
         }
 

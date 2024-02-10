@@ -11,8 +11,8 @@ namespace VYaml.Serialization.Unity.Formatters.Math
 
     public void Serialize(ref Utf8YamlEmitter emitter, Vector3Int value, YamlSerializationContext context)
     {
-      var f = new[] { value.x, value.y, value.z };
-      Utils.WriteIntArrayWithFlowStyle(ref emitter, f, context);
+      var i = new[] { value.x, value.y, value.z };
+      i.WriteIntArrayWithFlowStyle(ref emitter);
     }
 
     public Vector3Int Deserialize(ref YamlParser parser, YamlDeserializationContext context)

@@ -16,7 +16,7 @@ namespace VYaml.Serialization.Unity.Formatters.Geometry
       context.Serialize(ref emitter, value.normal);
 
       emitter.WriteString(nameof(Plane.distance));
-      context.Serialize(ref emitter, value.distance);
+      emitter.WriteFloat(value.distance);
       emitter.EndMapping();
     }
 
@@ -39,9 +39,9 @@ namespace VYaml.Serialization.Unity.Formatters.Geometry
 
         if (key != null)
         {
-          if (key.Equals(nameof(Plane.normal), StringComparison.OrdinalIgnoreCase))
+          if (key.EqualsKey(nameof(Plane.normal)))
             plane.normal = context.DeserializeWithAlias(vector3Formatter, ref parser);
-          else if (key.Equals(nameof(Plane.distance), StringComparison.OrdinalIgnoreCase))
+          else if (key.EqualsKey(nameof(Plane.distance)))
             plane.distance = parser.ReadScalarAsFloat();
         }
       }

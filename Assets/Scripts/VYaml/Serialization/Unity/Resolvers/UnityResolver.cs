@@ -4,6 +4,7 @@ using Unity.Collections;
 using UnityEngine;
 using VYaml.Serialization.Unity.Formatters;
 using VYaml.Serialization.Unity.Formatters.Geometry;
+using VYaml.Serialization.Unity.Formatters.Graphics;
 using VYaml.Serialization.Unity.Formatters.Math;
 using VYaml.Serialization.Unity.Formatters.NativeArray;
 
@@ -24,6 +25,9 @@ namespace VYaml.Serialization.Unity.Resolvers
       { typeof(Vector3), Vector3Formatter.Instance },
       { typeof(Vector3Int), Vector3IntFormatter.Instance },
       { typeof(Vector4), Vector4Formatter.Instance },
+
+      { typeof(RefreshRate), RefreshRateFormatter.Instance },
+      { typeof(Resolution), ResolutionFormatter.Instance },
 
       { typeof(Bounds), BoundsFormatter.Instance },
       { typeof(BoundsInt), BoundsIntFormatter.Instance },

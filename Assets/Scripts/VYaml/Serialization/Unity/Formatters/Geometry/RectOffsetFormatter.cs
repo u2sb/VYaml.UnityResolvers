@@ -18,7 +18,7 @@ namespace VYaml.Serialization.Unity.Formatters.Geometry
       }
 
       var i = new[] { value.left, value.right, value.top, value.bottom };
-      Utils.WriteIntArrayWithFlowStyle(ref emitter, i, context);
+      i.WriteIntArrayWithFlowStyle(ref emitter);
     }
 
     public RectOffset? Deserialize(ref YamlParser parser, YamlDeserializationContext context)

@@ -12,7 +12,7 @@ namespace VYaml.Serialization.Unity.Formatters.Math
     public void Serialize(ref Utf8YamlEmitter emitter, Quaternion value, YamlSerializationContext context)
     {
       var f = new[] { value.x, value.y, value.z, value.w };
-      Utils.WriteFloatArrayWithFlowStyle(ref emitter, f, context);
+      f.WriteFloatArrayWithFlowStyle(ref emitter);
     }
 
     public Quaternion Deserialize(ref YamlParser parser, YamlDeserializationContext context)
