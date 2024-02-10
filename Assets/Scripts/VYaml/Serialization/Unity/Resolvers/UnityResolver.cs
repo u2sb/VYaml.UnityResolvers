@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor;
+using Unity.Collections;
 using UnityEngine;
+using VYaml.Serialization.Unity.Formatters;
 using VYaml.Serialization.Unity.Formatters.Geometry;
 using VYaml.Serialization.Unity.Formatters.Math;
+using VYaml.Serialization.Unity.Formatters.NativeArray;
 
 namespace VYaml.Serialization.Unity.Resolvers
 {
@@ -11,7 +13,7 @@ namespace VYaml.Serialization.Unity.Resolvers
   {
     public static readonly UnityResolver Instance = new();
 
-    private static readonly Dictionary<Type, IYamlFormatter> FormatterMap = new()
+    public static readonly Dictionary<Type, IYamlFormatter> FormatterMap = new()
     {
       { typeof(Color), ColorFormatter.Instance },
       { typeof(Color32), Color32Formatter.Instance },
@@ -31,7 +33,12 @@ namespace VYaml.Serialization.Unity.Resolvers
       { typeof(RectOffset), RectOffsetFormatter.Instance }
     };
 
-    private static readonly Dictionary<Type, Type> KnownGenericTypes = new();
+    public static readonly Dictionary<Type, Type> KnownGenericTypes = new()
+    {
+      { typeof(HashSet<>), typeof(HashSetFormatter<>) },
+
+      { typeof(NativeArray<>), typeof(NativeArrayFormatter<>) }
+    };
 
     public IYamlFormatter<T>? GetFormatter<T>()
     {
@@ -102,6 +109,12 @@ namespace VYaml.Serialization.Unity.Resolvers
         if (FormatterMap.TryGetValue(typeof(T), out var formatter) && formatter is IYamlFormatter<T> value)
         {
           Formatter = value;
+          return;
+        }
+
+        if (TryCreateGenericFormatter(typeof(T)) is IYamlFormatter<T> f)
+        {
+          Formatter = f;
           return;
         }
 
