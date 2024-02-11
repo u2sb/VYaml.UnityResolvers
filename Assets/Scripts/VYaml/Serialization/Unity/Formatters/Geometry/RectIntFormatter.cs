@@ -38,13 +38,11 @@ namespace VYaml.Serialization.Unity.Formatters.Geometry
         var key = parser.ReadScalarAsString();
         var value = context.DeserializeWithAlias(vector2IntFormatter, ref parser);
 
-        if (key != null)
-        {
-          if (key.EqualsKey(nameof(rectInt.position)))
-            rectInt.position = value;
-          else if (key.EqualsKey(nameof(rectInt.size)))
-            rectInt.size = value;
-        }
+        if (key == null) continue;
+        if (key.EqualsKey(nameof(rectInt.position)))
+          rectInt.position = value;
+        else if (key.EqualsKey(nameof(rectInt.size)))
+          rectInt.size = value;
       }
 
       parser.ReadWithVerify(ParseEventType.MappingEnd);

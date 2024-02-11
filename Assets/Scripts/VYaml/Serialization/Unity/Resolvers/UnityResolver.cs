@@ -31,6 +31,7 @@ namespace VYaml.Serialization.Unity.Resolvers
       { typeof(RefreshRate), RefreshRateFormatter.Instance },
 #endif
       { typeof(Resolution), ResolutionFormatter.Instance },
+      { typeof(Texture3D), Texture3DFormatter.Instance },
 
       { typeof(Hash128), Hash128Formatter.Instance },
 
@@ -39,7 +40,9 @@ namespace VYaml.Serialization.Unity.Resolvers
       { typeof(Plane), PlaneFormatter.Instance },
       { typeof(Rect), RectFormatter.Instance },
       { typeof(RectInt), RectIntFormatter.Instance },
-      { typeof(RectOffset), RectOffsetFormatter.Instance }
+      { typeof(RectOffset), RectOffsetFormatter.Instance },
+
+      { typeof(NativeArray<byte>), NativeByteArrayFormatter.Instance }
     };
 
     public static readonly Dictionary<Type, Type> KnownGenericTypes = new()
