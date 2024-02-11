@@ -27,7 +27,9 @@ namespace VYaml.Serialization.Unity.Resolvers
       { typeof(Vector3Int), Vector3IntFormatter.Instance },
       { typeof(Vector4), Vector4Formatter.Instance },
 
+#if UNITY_2022_2_OR_NEWER
       { typeof(RefreshRate), RefreshRateFormatter.Instance },
+#endif
       { typeof(Resolution), ResolutionFormatter.Instance },
 
       { typeof(Hash128), Hash128Formatter.Instance },
