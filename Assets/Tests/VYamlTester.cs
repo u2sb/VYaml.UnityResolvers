@@ -70,8 +70,8 @@ namespace Tests
           nameof(Rect),
           new[]
           {
-            new Rect(Random.insideUnitSphere * 100, Random.onUnitSphere * 100),
-            new Rect(Random.insideUnitSphere * 100, Random.onUnitSphere * 100)
+            new Rect(Random.insideUnitCircle * 100, Random.insideUnitCircle * 100),
+            new Rect(Random.insideUnitCircle * 100, Random.insideUnitCircle * 100)
           }
         }
       };
@@ -136,6 +136,25 @@ namespace Tests
               refreshRate = (int)(Random.value * 100)
             }
           }
+        }
+      };
+      Test(data0);
+    }
+
+    [Test]
+    public void VYamlMatrix4x4Tester()
+    {
+      var data0 = new Dictionary<string, Matrix4x4>
+      {
+        {
+          nameof(Matrix4x4),
+
+            new Matrix4x4(
+              Random.insideUnitSphere * 100,
+              Random.insideUnitSphere * 100,
+              Random.insideUnitSphere * 100,
+              Random.insideUnitSphere * 100
+            )
         }
       };
       Test(data0);
