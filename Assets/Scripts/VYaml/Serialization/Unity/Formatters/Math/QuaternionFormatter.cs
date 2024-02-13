@@ -1,20 +1,28 @@
 using UnityEngine;
 using VYaml.Emitter;
 using VYaml.Parser;
+using VYaml.Serialization.Unity.Formatters.Base.Vector;
 
 namespace VYaml.Serialization.Unity.Formatters.Math
 {
-  public class QuaternionFormatter : IYamlFormatter<Quaternion>
+  public class QuaternionFormatter : VectorFloatFormatter<Quaternion>
   {
     public static readonly QuaternionFormatter Instance = new();
 
-    public void Serialize(ref Utf8YamlEmitter emitter, Quaternion value, YamlSerializationContext context)
+    public QuaternionFormatter() : base(4)
     {
-      var f = new[] { value.x, value.y, value.z, value.w };
-      f.WriteFloatArrayWithFlowStyle(ref emitter);
     }
 
-    public Quaternion Deserialize(ref YamlParser parser, YamlDeserializationContext context)
+    public override void Serialize(ref Utf8YamlEmitter emitter, Quaternion value, YamlSerializationContext context)
+    {
+      Buffer[0] = value.x;
+      Buffer[1] = value.y;
+      Buffer[2] = value.z;
+      Buffer[3] = value.w;
+      WriteArrayWithFlowStyle(ref emitter);
+    }
+
+    public override Quaternion Deserialize(ref YamlParser parser, YamlDeserializationContext context)
     {
       if (parser.IsNullScalar())
       {
@@ -22,12 +30,14 @@ namespace VYaml.Serialization.Unity.Formatters.Math
         return default;
       }
 
-      var list = parser.ReadScalarAsFloatArray(4);
+      var i = ReadScalarAsArray(ref parser);
 
-      if (list.Length == 4) return new Quaternion(list[0], list[1], list[2], list[3]);
-      if (list.Length == 3) return Quaternion.Euler(list[0], list[1], list[2]);
-
-      return default;
+      return i switch
+      {
+        4 => new Quaternion(Buffer[0], Buffer[1], Buffer[2], Buffer[3]),
+        3 => Quaternion.Euler(Buffer[0], Buffer[1], Buffer[2]),
+        _ => default
+      };
     }
   }
 }

@@ -19,7 +19,13 @@ namespace VYaml.Serialization.Unity.Formatters.Math
       };
 
       emitter.BeginSequence();
-      foreach (var f in fs) f.WriteFloatArrayWithFlowStyle(ref emitter);
+      foreach (var f in fs)
+      {
+        emitter.BeginSequence(SequenceStyle.Flow);
+        foreach (var v in f) emitter.WriteFloat(v);
+        emitter.EndSequence();
+      }
+
       emitter.EndSequence();
     }
 

@@ -1,20 +1,27 @@
 using UnityEngine;
 using VYaml.Emitter;
 using VYaml.Parser;
+using VYaml.Serialization.Unity.Formatters.Base.Vector;
 
 namespace VYaml.Serialization.Unity.Formatters.Math
 {
-  public class Vector3Formatter : IYamlFormatter<Vector3>
+  public class Vector3Formatter : VectorFloatFormatter<Vector3>
   {
     public static readonly Vector3Formatter Instance = new();
 
-    public void Serialize(ref Utf8YamlEmitter emitter, Vector3 value, YamlSerializationContext context)
+    public Vector3Formatter() : base(3)
     {
-      var f = new[] { value.x, value.y, value.z };
-      f.WriteFloatArrayWithFlowStyle(ref emitter);
     }
 
-    public Vector3 Deserialize(ref YamlParser parser, YamlDeserializationContext context)
+    public override void Serialize(ref Utf8YamlEmitter emitter, Vector3 value, YamlSerializationContext context)
+    {
+      Buffer[0] = value.x;
+      Buffer[1] = value.y;
+      Buffer[2] = value.z;
+      WriteArrayWithFlowStyle(ref emitter);
+    }
+
+    public override Vector3 Deserialize(ref YamlParser parser, YamlDeserializationContext context)
     {
       if (parser.IsNullScalar())
       {
@@ -22,12 +29,14 @@ namespace VYaml.Serialization.Unity.Formatters.Math
         return default;
       }
 
-      var list = parser.ReadScalarAsFloatArray(3);
+      var i = ReadScalarAsArray(ref parser);
 
-      if (list.Length == 3) return new Vector3(list[0], list[1], list[2]);
-      if (list.Length == 2) return new Vector3(list[0], list[1]);
-
-      return default;
+      return i switch
+      {
+        3 => new Vector3(Buffer[0], Buffer[1], Buffer[2]),
+        2 => new Vector3(Buffer[0], Buffer[1]),
+        _ => default
+      };
     }
   }
 }

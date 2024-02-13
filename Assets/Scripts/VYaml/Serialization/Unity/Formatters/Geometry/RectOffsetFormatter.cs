@@ -1,14 +1,20 @@
+#nullable enable
 using UnityEngine;
 using VYaml.Emitter;
 using VYaml.Parser;
+using VYaml.Serialization.Unity.Formatters.Base.Vector;
 
 namespace VYaml.Serialization.Unity.Formatters.Geometry
 {
-  public class RectOffsetFormatter : IYamlFormatter<RectOffset?>
+  public class RectOffsetFormatter : VectorIntFormatter<RectOffset?>
   {
     public static readonly RectOffsetFormatter Instance = new();
 
-    public void Serialize(ref Utf8YamlEmitter emitter, RectOffset? value, YamlSerializationContext context)
+    public RectOffsetFormatter() : base(4)
+    {
+    }
+
+    public override void Serialize(ref Utf8YamlEmitter emitter, RectOffset? value, YamlSerializationContext context)
     {
       if (value == null)
       {
@@ -16,11 +22,14 @@ namespace VYaml.Serialization.Unity.Formatters.Geometry
         return;
       }
 
-      var i = new[] { value.left, value.right, value.top, value.bottom };
-      i.WriteIntArrayWithFlowStyle(ref emitter);
+      Buffer[0] = value.left;
+      Buffer[1] = value.right;
+      Buffer[2] = value.top;
+      Buffer[3] = value.bottom;
+      WriteArrayWithFlowStyle(ref emitter);
     }
 
-    public RectOffset? Deserialize(ref YamlParser parser, YamlDeserializationContext context)
+    public override RectOffset? Deserialize(ref YamlParser parser, YamlDeserializationContext context)
     {
       if (parser.IsNullScalar())
       {
@@ -28,11 +37,13 @@ namespace VYaml.Serialization.Unity.Formatters.Geometry
         return default;
       }
 
-      var list = parser.ReadScalarAsIntArray(4);
+      var i = ReadScalarAsArray(ref parser);
 
-      if (list.Length == 4) return new RectOffset(list[0], list[1], list[2], list[3]);
-
-      return default;
+      return i switch
+      {
+        4 => new RectOffset(Buffer[0], Buffer[1], Buffer[2], Buffer[3]),
+        _ => default
+      };
     }
   }
 }

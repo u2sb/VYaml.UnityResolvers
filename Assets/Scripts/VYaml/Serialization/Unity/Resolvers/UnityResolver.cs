@@ -18,7 +18,7 @@ namespace VYaml.Serialization.Unity.Resolvers
     public static readonly Dictionary<Type, IYamlFormatter> FormatterMap = new()
     {
       { typeof(Color), ColorFormatter.Instance },
-      { typeof(Color32), Color32Formatter.Instance },
+      { typeof(Color32), Color32ByteFormatter.Instance },
       { typeof(Matrix4x4), Matrix4x4Formatter.Instance },
       { typeof(Quaternion), QuaternionFormatter.Instance },
       { typeof(Vector2), Vector2Formatter.Instance },

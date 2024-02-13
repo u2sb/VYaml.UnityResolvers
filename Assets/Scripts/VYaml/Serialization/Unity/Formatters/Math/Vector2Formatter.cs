@@ -1,20 +1,26 @@
 using UnityEngine;
 using VYaml.Emitter;
 using VYaml.Parser;
+using VYaml.Serialization.Unity.Formatters.Base.Vector;
 
 namespace VYaml.Serialization.Unity.Formatters.Math
 {
-  public class Vector2Formatter : IYamlFormatter<Vector2>
+  public class Vector2Formatter : VectorFloatFormatter<Vector2>
   {
     public static readonly Vector2Formatter Instance = new();
 
-    public void Serialize(ref Utf8YamlEmitter emitter, Vector2 value, YamlSerializationContext context)
+    public Vector2Formatter() : base(2)
     {
-      var f = new[] { value.x, value.y };
-      f.WriteFloatArrayWithFlowStyle(ref emitter);
     }
 
-    public Vector2 Deserialize(ref YamlParser parser, YamlDeserializationContext context)
+    public override void Serialize(ref Utf8YamlEmitter emitter, Vector2 value, YamlSerializationContext context)
+    {
+      Buffer[0] = value.x;
+      Buffer[1] = value.y;
+      WriteArrayWithFlowStyle(ref emitter);
+    }
+
+    public override Vector2 Deserialize(ref YamlParser parser, YamlDeserializationContext context)
     {
       if (parser.IsNullScalar())
       {
@@ -22,11 +28,13 @@ namespace VYaml.Serialization.Unity.Formatters.Math
         return default;
       }
 
-      var list = parser.ReadScalarAsFloatArray(2);
+      var i = ReadScalarAsArray(ref parser);
 
-      if (list.Length == 2) return new Vector2(list[0], list[1]);
-
-      return default;
+      return i switch
+      {
+        2 => new Vector2(Buffer[0], Buffer[1]),
+        _ => default
+      };
     }
   }
 }

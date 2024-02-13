@@ -1,20 +1,28 @@
 using UnityEngine;
 using VYaml.Emitter;
 using VYaml.Parser;
+using VYaml.Serialization.Unity.Formatters.Base.Vector;
 
 namespace VYaml.Serialization.Unity.Formatters.Math
 {
-  public class Vector4Formatter : IYamlFormatter<Vector4>
+  public class Vector4Formatter : VectorFloatFormatter<Vector4>
   {
     public static readonly Vector4Formatter Instance = new();
 
-    public void Serialize(ref Utf8YamlEmitter emitter, Vector4 value, YamlSerializationContext context)
+    public Vector4Formatter() : base(4)
     {
-      var f = new[] { value.x, value.y, value.z, value.w };
-      f.WriteFloatArrayWithFlowStyle(ref emitter);
     }
 
-    public Vector4 Deserialize(ref YamlParser parser, YamlDeserializationContext context)
+    public override void Serialize(ref Utf8YamlEmitter emitter, Vector4 value, YamlSerializationContext context)
+    {
+      Buffer[0] = value.x;
+      Buffer[1] = value.y;
+      Buffer[2] = value.z;
+      Buffer[3] = value.w;
+      WriteArrayWithFlowStyle(ref emitter);
+    }
+
+    public override Vector4 Deserialize(ref YamlParser parser, YamlDeserializationContext context)
     {
       if (parser.IsNullScalar())
       {
@@ -22,13 +30,15 @@ namespace VYaml.Serialization.Unity.Formatters.Math
         return default;
       }
 
-      var list = parser.ReadScalarAsFloatArray(4);
+      var i = ReadScalarAsArray(ref parser);
 
-      if (list.Length == 4) return new Vector4(list[0], list[1], list[2], list[3]);
-      if (list.Length == 3) return new Vector4(list[0], list[1], list[2]);
-      if (list.Length == 2) return new Vector4(list[0], list[1]);
-
-      return default;
+      return i switch
+      {
+        4 => new Vector4(Buffer[0], Buffer[1], Buffer[2], Buffer[3]),
+        3 => new Vector4(Buffer[0], Buffer[1], Buffer[2]),
+        2 => new Vector4(Buffer[0], Buffer[1]),
+        _ => default
+      };
     }
   }
 }

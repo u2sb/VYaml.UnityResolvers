@@ -1,20 +1,28 @@
 using UnityEngine;
 using VYaml.Emitter;
 using VYaml.Parser;
+using VYaml.Serialization.Unity.Formatters.Base.Vector;
 
 namespace VYaml.Serialization.Unity.Formatters.Math
 {
-  public class Color32Formatter : IYamlFormatter<Color32>
+  public class Color32ByteFormatter : VectorByteFormatter<Color32>
   {
-    public static readonly Color32Formatter Instance = new();
+    public static readonly Color32ByteFormatter Instance = new();
 
-    public void Serialize(ref Utf8YamlEmitter emitter, Color32 value, YamlSerializationContext context)
+    public Color32ByteFormatter() : base(4)
     {
-      var b = new[] { value.r, value.g, value.b, value.a };
-      b.WriteByteArrayWithFlowStyle(ref emitter);
     }
 
-    public Color32 Deserialize(ref YamlParser parser, YamlDeserializationContext context)
+    public override void Serialize(ref Utf8YamlEmitter emitter, Color32 value, YamlSerializationContext context)
+    {
+      Buffer[0] = value.r;
+      Buffer[1] = value.g;
+      Buffer[2] = value.b;
+      Buffer[3] = value.a;
+      WriteArrayWithFlowStyle(ref emitter);
+    }
+
+    public override Color32 Deserialize(ref YamlParser parser, YamlDeserializationContext context)
     {
       if (parser.IsNullScalar())
       {
@@ -22,11 +30,13 @@ namespace VYaml.Serialization.Unity.Formatters.Math
         return default;
       }
 
-      var list = parser.ReadScalarAsByteArray(4);
+      var i = ReadScalarAsArray(ref parser);
 
-      if (list.Length == 4) return new Color32(list[0], list[1], list[2], list[3]);
-
-      return default;
+      return i switch
+      {
+        4 => new Color32(Buffer[0], Buffer[1], Buffer[2], Buffer[3]),
+        _ => default
+      };
     }
   }
 }
