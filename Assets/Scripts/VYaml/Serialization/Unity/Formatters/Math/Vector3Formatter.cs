@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using VYaml.Emitter;
 using VYaml.Parser;
@@ -23,12 +22,10 @@ namespace VYaml.Serialization.Unity.Formatters.Math
         return default;
       }
 
-      var formatter = context.Resolver.GetFormatterWithVerify<List<float>>();
+      var list = parser.ReadScalarAsFloatArray(3);
 
-      var list = context.DeserializeWithAlias(formatter, ref parser);
-
-      if (list.Count == 3) return new Vector3(list[0], list[1], list[2]);
-      if (list.Count == 2) return new Vector3(list[0], list[1]);
+      if (list.Length == 3) return new Vector3(list[0], list[1], list[2]);
+      if (list.Length == 2) return new Vector3(list[0], list[1]);
 
       return default;
     }

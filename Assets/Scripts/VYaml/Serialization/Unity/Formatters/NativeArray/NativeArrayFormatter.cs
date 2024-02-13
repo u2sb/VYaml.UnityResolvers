@@ -17,6 +17,7 @@ namespace VYaml.Serialization.Unity.Formatters.NativeArray
   public class NativeByteArrayFormatter : NativeArrayFormatter<byte>
   {
     public static readonly NativeByteArrayFormatter Instance = new();
+
     public override void Serialize(ref Utf8YamlEmitter emitter, NativeArray<byte> value,
       YamlSerializationContext context)
     {

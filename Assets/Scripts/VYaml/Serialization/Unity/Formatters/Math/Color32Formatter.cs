@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using VYaml.Emitter;
 using VYaml.Parser;
@@ -23,11 +22,9 @@ namespace VYaml.Serialization.Unity.Formatters.Math
         return default;
       }
 
-      var formatter = context.Resolver.GetFormatterWithVerify<List<byte>>();
+      var list = parser.ReadScalarAsByteArray(4);
 
-      var list = context.DeserializeWithAlias(formatter, ref parser);
-
-      if (list.Count == 4) return new Color32(list[0], list[1], list[2], list[3]);
+      if (list.Length == 4) return new Color32(list[0], list[1], list[2], list[3]);
 
       return default;
     }

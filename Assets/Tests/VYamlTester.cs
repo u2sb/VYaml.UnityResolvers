@@ -45,7 +45,7 @@ namespace Tests
     }
 
     [Test]
-    public void VYamlPlaneIntTester()
+    public void VYamlPlaneTester()
     {
       var data0 = new Dictionary<string, Plane[]>
       {
@@ -155,6 +155,32 @@ namespace Tests
               Random.insideUnitSphere * 100,
               Random.insideUnitSphere * 100
             )
+        }
+      };
+      Test(data0);
+    }
+    
+    [Test]
+    public void VYamlColorTester()
+    {
+      var data0 = new Dictionary<string, Color>
+      {
+        {
+          nameof(Matrix4x4),
+          new Color(Random.value, Random.value, Random.value, Random.value)
+        }
+      };
+      Test(data0);
+    }
+    
+    [Test]
+    public void VYamlColor32Tester()
+    {
+      var data0 = new Dictionary<string, Color32>
+      {
+        {
+          nameof(Matrix4x4),
+          new Color(Random.value, Random.value, Random.value, Random.value)
         }
       };
       Test(data0);
