@@ -149,38 +149,103 @@ namespace Tests
         {
           nameof(Matrix4x4),
 
-            new Matrix4x4(
-              Random.insideUnitSphere * 100,
-              Random.insideUnitSphere * 100,
-              Random.insideUnitSphere * 100,
-              Random.insideUnitSphere * 100
-            )
+          new Matrix4x4(
+            Random.insideUnitSphere * 100,
+            Random.insideUnitSphere * 100,
+            Random.insideUnitSphere * 100,
+            Random.insideUnitSphere * 100
+          )
         }
       };
       Test(data0);
     }
-    
+
     [Test]
     public void VYamlColorTester()
     {
       var data0 = new Dictionary<string, Color>
       {
         {
-          nameof(Matrix4x4),
+          nameof(Color),
           new Color(Random.value, Random.value, Random.value, Random.value)
         }
       };
       Test(data0);
     }
-    
+
     [Test]
     public void VYamlColor32Tester()
     {
       var data0 = new Dictionary<string, Color32>
       {
         {
-          nameof(Matrix4x4),
+          nameof(Color32),
           new Color(Random.value, Random.value, Random.value, Random.value)
+        }
+      };
+      Test(data0);
+    }
+
+    [Test]
+    public void VYamlVector4Tester()
+    {
+      var data0 = new Dictionary<string, Vector4>
+      {
+        {
+          nameof(Vector4),
+          new Vector4(Random.value, Random.value, Random.value, Random.value)
+        }
+      };
+      Test(data0);
+    }
+
+    [Test]
+    public void VYamlVector3Tester()
+    {
+      var data0 = new Dictionary<string, Vector3>
+      {
+        {
+          nameof(Vector3),
+          new Vector3(Random.value, Random.value, Random.value)
+        }
+      };
+      Test(data0);
+    }
+
+    [Test]
+    public void VYamlVector3IntTester()
+    {
+      var data0 = new Dictionary<string, Vector3Int>
+      {
+        {
+          nameof(Vector3Int),
+          new Vector3Int((int)(Random.value * 100), (int)(Random.value * 100), (int)(Random.value * 100))
+        }
+      };
+      Test(data0);
+    }
+
+    [Test]
+    public void VYamlVector2Tester()
+    {
+      var data0 = new Dictionary<string, Vector2>
+      {
+        {
+          nameof(Vector2),
+          new Vector2(Random.value, Random.value)
+        }
+      };
+      Test(data0);
+    }
+
+    [Test]
+    public void VYamlVector2IntTester()
+    {
+      var data0 = new Dictionary<string, Vector2Int>
+      {
+        {
+          nameof(Vector2Int),
+          new Vector2Int((int)(Random.value * 100), (int)(Random.value * 100))
         }
       };
       Test(data0);
