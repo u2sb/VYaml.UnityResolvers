@@ -5,11 +5,11 @@ using VYaml.Serialization.Unity.Formatters.Base.Vector;
 
 namespace VYaml.Serialization.Unity.Formatters.Math
 {
-  public class Color32ByteFormatter : VectorByteFormatter<Color32>
+  public class Color32Formatter : VectorByteFormatter<Color32>
   {
-    public static readonly Color32ByteFormatter Instance = new();
+    public static readonly Color32Formatter Instance = new();
 
-    public Color32ByteFormatter() : base(4)
+    public Color32Formatter() : base(4)
     {
     }
 

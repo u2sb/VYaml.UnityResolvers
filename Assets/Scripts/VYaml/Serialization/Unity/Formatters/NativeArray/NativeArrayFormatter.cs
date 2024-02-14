@@ -21,12 +21,6 @@ namespace VYaml.Serialization.Unity.Formatters.NativeArray
     public override void Serialize(ref Utf8YamlEmitter emitter, NativeArray<byte> value,
       YamlSerializationContext context)
     {
-      if (value.Length == 0)
-      {
-        emitter.WriteNull();
-        return;
-      }
-
       emitter.WriteString(Convert.ToBase64String(value), ScalarStyle.Plain);
     }
   }
