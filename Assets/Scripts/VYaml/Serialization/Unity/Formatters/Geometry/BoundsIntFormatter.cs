@@ -10,12 +10,14 @@ namespace VYaml.Serialization.Unity.Formatters.Geometry
 
     public void Serialize(ref Utf8YamlEmitter emitter, BoundsInt value, YamlSerializationContext context)
     {
+      var vector3IntFormatter = context.Resolver.GetFormatterWithVerify<Vector3Int>();
+
       emitter.BeginMapping();
       emitter.WriteString(nameof(BoundsInt.position));
-      context.Serialize(ref emitter, value.position);
+      vector3IntFormatter.Serialize(ref emitter, value.position, context);
 
       emitter.WriteString(nameof(BoundsInt.size));
-      context.Serialize(ref emitter, value.size);
+      vector3IntFormatter.Serialize(ref emitter, value.size, context);
       emitter.EndMapping();
     }
 

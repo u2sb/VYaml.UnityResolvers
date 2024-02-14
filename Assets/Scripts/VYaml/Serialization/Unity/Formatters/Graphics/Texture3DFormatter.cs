@@ -1,5 +1,6 @@
 #nullable enable
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 using VYaml.Emitter;
 using VYaml.Parser;
@@ -18,6 +19,9 @@ namespace VYaml.Serialization.Unity.Formatters.Graphics
         return;
       }
 
+      var wrapModeFormatter = context.Resolver.GetFormatterWithVerify<TextureWrapMode>();
+      var byteArrayFormatter = context.Resolver.GetFormatterWithVerify<NativeArray<byte>>();
+
       emitter.BeginMapping();
 
       emitter.WriteString(nameof(Texture3D.width));
@@ -30,13 +34,13 @@ namespace VYaml.Serialization.Unity.Formatters.Graphics
       emitter.WriteInt32(value.depth);
 
       emitter.WriteString(nameof(Texture3D.format));
-      context.Serialize(ref emitter, value.format);
+      context.Resolver.GetFormatterWithVerify<TextureFormat>().Serialize(ref emitter, value.format, context);
 
       emitter.WriteString(nameof(Texture3D.mipmapCount));
       emitter.WriteInt32(value.mipmapCount);
 
       emitter.WriteString(nameof(Texture3D.filterMode));
-      context.Serialize(ref emitter, value.filterMode);
+      context.Resolver.GetFormatterWithVerify<FilterMode>().Serialize(ref emitter, value.filterMode, context);
 
       emitter.WriteString(nameof(Texture3D.anisoLevel));
       emitter.WriteInt32(value.anisoLevel);
@@ -45,17 +49,18 @@ namespace VYaml.Serialization.Unity.Formatters.Graphics
       emitter.WriteFloat(value.mipMapBias);
 
       emitter.WriteString(nameof(Texture3D.wrapModeU));
-      context.Serialize(ref emitter, value.wrapModeU);
+      wrapModeFormatter.Serialize(ref emitter, value.wrapModeU, context);
 
       emitter.WriteString(nameof(Texture3D.wrapModeV));
-      context.Serialize(ref emitter, value.wrapModeV);
+      wrapModeFormatter.Serialize(ref emitter, value.wrapModeV, context);
 
       emitter.WriteString(nameof(Texture3D.wrapModeW));
-      context.Serialize(ref emitter, value.wrapModeW);
+      wrapModeFormatter.Serialize(ref emitter, value.wrapModeW, context);
 
       emitter.WriteString("data");
       emitter.BeginSequence();
-      for (var i = 0; i < value.mipmapCount; i++) context.Serialize(ref emitter, value.GetPixelData<byte>(i));
+      for (var i = 0; i < value.mipmapCount; i++)
+        byteArrayFormatter.Serialize(ref emitter, value.GetPixelData<byte>(i), context);
       emitter.EndSequence();
 
       emitter.EndMapping();

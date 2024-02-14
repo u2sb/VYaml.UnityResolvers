@@ -10,9 +10,11 @@ namespace VYaml.Serialization.Unity.Formatters.Geometry
 
     public void Serialize(ref Utf8YamlEmitter emitter, Plane value, YamlSerializationContext context)
     {
+      var vector3Formatter = context.Resolver.GetFormatterWithVerify<Vector3>();
+
       emitter.BeginMapping();
       emitter.WriteString(nameof(Plane.normal));
-      context.Serialize(ref emitter, value.normal);
+      vector3Formatter.Serialize(ref emitter, value.normal, context);
 
       emitter.WriteString(nameof(Plane.distance));
       emitter.WriteFloat(value.distance);

@@ -20,7 +20,7 @@ namespace VYaml.Serialization.Unity.Formatters.Graphics
 
 #if UNITY_2022_2_OR_NEWER
       emitter.WriteString(nameof(Resolution.refreshRateRatio));
-      context.Serialize(ref emitter, value.refreshRateRatio);
+      context.Resolver.GetFormatterWithVerify<RefreshRate>().Serialize(ref emitter, value.refreshRateRatio, context);
 #else
       emitter.WriteString(nameof(Resolution.refreshRate));
       context.Serialize(ref emitter, value.width);
@@ -37,7 +37,6 @@ namespace VYaml.Serialization.Unity.Formatters.Graphics
       }
 
       var resolution = new Resolution();
-      var refreshRateFormatter = context.Resolver.GetFormatterWithVerify<RefreshRate>();
 
       parser.ReadWithVerify(ParseEventType.MappingStart);
 
@@ -51,11 +50,13 @@ namespace VYaml.Serialization.Unity.Formatters.Graphics
             resolution.width = parser.ReadScalarAsInt32();
           else if (key.EqualsKey(nameof(Resolution.height)))
             resolution.height = parser.ReadScalarAsInt32();
+#pragma warning disable CS0618 // Type or member is obsolete
           else if (key.EqualsKey(nameof(Resolution.refreshRate)))
             resolution.refreshRate = parser.ReadScalarAsInt32();
+#pragma warning restore CS0618 // Type or member is obsolete
 #if UNITY_2022_2_OR_NEWER
           else if (key.EqualsKey(nameof(Resolution.refreshRateRatio)))
-            resolution.refreshRateRatio = context.DeserializeWithAlias(refreshRateFormatter, ref parser);
+            resolution.refreshRateRatio = context.DeserializeWithAlias<RefreshRate>(ref parser);
 #endif
         }
       }

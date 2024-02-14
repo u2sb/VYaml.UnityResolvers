@@ -22,9 +22,7 @@ namespace VYaml.Serialization.Unity.Formatters.Hash
       }
 
       var hash128 = parser.ReadScalarAsString();
-      if (hash128 != null) return Hash128.Parse(hash128);
-
-      return default;
+      return hash128 != null ? Hash128.Parse(hash128) : default;
     }
   }
 }
