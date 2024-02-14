@@ -50,14 +50,13 @@ size: [x, y, z]
 
 ### Math
 
-| Type               | Yaml Example |
-| :----------------- | :----------- |
-| Color              | [r, g, b, a] |
-| Color32            | [r, g, b, a] |
-| Quaternion         | [x, y, z, w] |
-| Vector2 Vector2Int | [x, y]       |
-| Vector3 Vector3Int | [x, y, z]    |
-| Vector4            | [x, y, z, w] |
+| Type                   | Yaml Example   |
+| :--------------------- | :------------- |
+| `Color` `Color32`      | `[r, g, b, a]` |
+| `Quaternion`           | `[x, y, z, w]` |
+| `Vector2` `Vector2Int` | `[x, y]`       |
+| `Vector3` `Vector3Int` | `[x, y, z]`    |
+| `Vector4`              | `[x, y, z, w]` |
 
 #### Matrix4x4
 
@@ -70,7 +69,7 @@ size: [x, y, z]
 
 Raw Matrix:
 
-$$ 
+$$
 \begin{bmatrix}
  m00 & m01 & m02 & m03 \\
  m10 & m11 & m12 & m13 \\
