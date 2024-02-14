@@ -6,10 +6,9 @@ namespace VYaml.Serialization.Unity.Formatters.Base.Vector
 {
   public class VectorByteFormatter<T> : VectorBaseFormatter<T, byte>
   {
-    public VectorByteFormatter(int l) : base(l)
+    protected VectorByteFormatter(int l) : base(l)
     {
     }
-
 
     public override void Serialize(ref Utf8YamlEmitter emitter, T value, YamlSerializationContext context)
     {

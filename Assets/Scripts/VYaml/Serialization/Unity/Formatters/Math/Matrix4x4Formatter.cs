@@ -10,19 +10,11 @@ namespace VYaml.Serialization.Unity.Formatters.Math
 
     public void Serialize(ref Utf8YamlEmitter emitter, Matrix4x4 value, YamlSerializationContext context)
     {
-      var fs = new[]
-      {
-        new[] { value.m00, value.m10, value.m20, value.m30 },
-        new[] { value.m01, value.m11, value.m21, value.m31 },
-        new[] { value.m02, value.m12, value.m22, value.m32 },
-        new[] { value.m03, value.m13, value.m23, value.m33 }
-      };
-
       emitter.BeginSequence();
-      foreach (var f in fs)
+      for (var i = 0; i < 4; i++)
       {
         emitter.BeginSequence(SequenceStyle.Flow);
-        foreach (var v in f) emitter.WriteFloat(v);
+        for (var j = 0; j < 4; j++) emitter.WriteFloat(value[i * 4 + j]);
         emitter.EndSequence();
       }
 

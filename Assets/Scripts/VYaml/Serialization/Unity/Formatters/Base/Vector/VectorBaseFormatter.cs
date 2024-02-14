@@ -3,13 +3,13 @@ using VYaml.Parser;
 
 namespace VYaml.Serialization.Unity.Formatters.Base.Vector
 {
-  public abstract class VectorBaseFormatter<T, TI> : IYamlFormatter<T>
+  public abstract class VectorBaseFormatter<T, TU> : IYamlFormatter<T>
   {
-    protected TI[] Buffer;
+    protected readonly TU[] Buffer;
 
     protected VectorBaseFormatter(int l)
     {
-      Buffer = new TI[l];
+      Buffer = new TU[l];
     }
 
     public abstract void Serialize(ref Utf8YamlEmitter emitter, T value, YamlSerializationContext context);

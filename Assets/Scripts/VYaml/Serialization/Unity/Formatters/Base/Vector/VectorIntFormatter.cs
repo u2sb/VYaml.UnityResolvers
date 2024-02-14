@@ -6,7 +6,7 @@ namespace VYaml.Serialization.Unity.Formatters.Base.Vector
 {
   public class VectorIntFormatter<T> : VectorBaseFormatter<T, int>
   {
-    public VectorIntFormatter(int l) : base(l)
+    protected VectorIntFormatter(int l) : base(l)
     {
     }
 
