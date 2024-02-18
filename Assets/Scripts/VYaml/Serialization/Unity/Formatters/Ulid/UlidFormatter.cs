@@ -1,4 +1,6 @@
 #if ENABLE_ULID
+using System;
+using System.Buffers.Text;
 using VYaml.Emitter;
 using VYaml.Parser;
 
@@ -18,14 +20,20 @@ namespace VYaml.Serialization.Unity.Formatters.Ulid
         return;
       }
 
-      throw new YamlSerializerException("");
+      throw new YamlSerializerException($"Cannot serialize {value}");
     }
 
     public System.Ulid Deserialize(ref YamlParser parser, YamlDeserializationContext context)
     {
-      var buffer = parser.GetScalarAsUtf8();
-      parser.Read();
-      return System.Ulid.TryParse(buffer, out var ulid) ? ulid : default;
+      if (parser.TryGetScalarAsSpan(out var span))
+      {
+        parser.Read();
+        if (System.Ulid.TryParse(span, out var ulid)) return ulid;
+        if (Utf8Parser.TryParse(span, out Guid guid, out var bytesConsumed) &&
+            bytesConsumed == span.Length) return new System.Ulid(guid);
+      }
+
+      throw new YamlSerializerException($"Cannot detect a scalar value of Ulid : {parser.CurrentEventType} {parser.GetScalarAsString()}");
     }
   }
 }

@@ -262,6 +262,11 @@ namespace Tests
         }
       };
       Test(data0);
+
+      var s = Ulid.NewUlid();
+      var data1 = YamlSerializer.Deserialize<Ulid>(Encoding.UTF8.GetBytes(s.ToGuid().ToString()));
+      Debug.Log(s);
+      Debug.Log(data1);
     }
 
     private void Test<T>(T data0)
