@@ -31,7 +31,9 @@ MonoBehaviour:
     m_Name: package.openupm.com
     m_Url: https://package.openupm.com
     m_Scopes:
+    - com.cysharp.ulid
     - jp.hadashikick.vyaml
+    - org.nuget.system.runtime.compilerservices.unsafe
     m_IsDefault: 0
     m_Capabilities: 0
     m_ConfigSource: 4

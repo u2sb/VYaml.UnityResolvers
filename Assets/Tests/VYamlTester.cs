@@ -251,6 +251,19 @@ namespace Tests
       Test(data0);
     }
 
+    [Test]
+    public void VYamlUlidTester()
+    {
+      var data0 = new Dictionary<string, Ulid>
+      {
+        {
+          nameof(Ulid),
+          Ulid.NewUlid()
+        }
+      };
+      Test(data0);
+    }
+
     private void Test<T>(T data0)
     {
       var b0 = YamlSerializer.SerializeToString(data0);

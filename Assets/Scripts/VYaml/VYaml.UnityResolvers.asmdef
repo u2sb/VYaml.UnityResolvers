@@ -1,16 +1,23 @@
 {
-  "name": "VYaml.UnityResolvers",
-  "rootNamespace": "",
-  "references": [
-    "VYaml.Core"
-  ],
-  "includePlatforms": [],
-  "excludePlatforms": [],
-  "allowUnsafeCode": false,
-  "overrideReferences": false,
-  "precompiledReferences": [],
-  "autoReferenced": true,
-  "defineConstraints": [],
-  "versionDefines": [],
-  "noEngineReferences": false
+    "name": "VYaml.UnityResolvers",
+    "rootNamespace": "",
+    "references": [
+        "VYaml.Core",
+        "Ulid"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.cysharp.ulid",
+            "expression": "",
+            "define": "ENABLE_ULID"
+        }
+    ],
+    "noEngineReferences": false
 }

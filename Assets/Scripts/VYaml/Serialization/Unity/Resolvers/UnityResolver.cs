@@ -9,6 +9,9 @@ using VYaml.Serialization.Unity.Formatters.Graphics;
 using VYaml.Serialization.Unity.Formatters.Hash;
 using VYaml.Serialization.Unity.Formatters.Math;
 using VYaml.Serialization.Unity.Formatters.NativeArray;
+#if ENABLE_ULID
+using VYaml.Serialization.Unity.Formatters.Ulid;
+#endif
 
 namespace VYaml.Serialization.Unity.Resolvers
 {
@@ -61,7 +64,12 @@ namespace VYaml.Serialization.Unity.Resolvers
       { typeof(RectOffset), RectOffsetFormatter.Instance },
 
       { typeof(NativeArray<byte>), NativeByteArrayFormatter.Instance },
-      { typeof(NativeArray<byte>?), new StaticNullableFormatter<NativeArray<byte>>(NativeByteArrayFormatter.Instance) }
+      { typeof(NativeArray<byte>?), new StaticNullableFormatter<NativeArray<byte>>(NativeByteArrayFormatter.Instance) },
+
+#if ENABLE_ULID
+      { typeof(Ulid), UlidFormatter.Instance },
+      { typeof(Ulid?), new StaticNullableFormatter<Ulid>(UlidFormatter.Instance) }
+#endif
     };
 
     public static readonly Dictionary<Type, Type> KnownGenericTypes = new()

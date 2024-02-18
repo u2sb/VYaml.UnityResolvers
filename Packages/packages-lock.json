@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.cysharp.ulid": {
+      "version": "1.3.3",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
     "com.unity.ext.nunit": {
       "version": "2.0.5",
       "depth": 1,
@@ -59,6 +66,13 @@
     },
     "jp.hadashikick.vyaml": {
       "version": "0.24.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
+    "org.nuget.system.runtime.compilerservices.unsafe": {
+      "version": "6.0.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
