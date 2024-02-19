@@ -15,8 +15,8 @@ namespace VYaml.Serialization.Unity.Formatters.Math
 
     public override void Serialize(ref Utf8YamlEmitter emitter, Vector2Int value, YamlSerializationContext context)
     {
-      Buffer[0] = value.x;
-      Buffer[1] = value.y;
+      Buf[0] = value.x;
+      Buf[1] = value.y;
       WriteArrayWithFlowStyle(ref emitter);
     }
 
@@ -31,7 +31,7 @@ namespace VYaml.Serialization.Unity.Formatters.Math
       var i = ReadScalarAsArray(ref parser);
       return i switch
       {
-        2 => new Vector2Int(Buffer[0], Buffer[1]),
+        2 => new Vector2Int(Buf[0], Buf[1]),
         _ => default
       };
     }

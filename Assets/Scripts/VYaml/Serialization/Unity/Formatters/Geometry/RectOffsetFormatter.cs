@@ -22,10 +22,10 @@ namespace VYaml.Serialization.Unity.Formatters.Geometry
         return;
       }
 
-      Buffer[0] = value.left;
-      Buffer[1] = value.right;
-      Buffer[2] = value.top;
-      Buffer[3] = value.bottom;
+      Buf[0] = value.left;
+      Buf[1] = value.right;
+      Buf[2] = value.top;
+      Buf[3] = value.bottom;
       WriteArrayWithFlowStyle(ref emitter);
     }
 
@@ -41,7 +41,7 @@ namespace VYaml.Serialization.Unity.Formatters.Geometry
 
       return i switch
       {
-        4 => new RectOffset(Buffer[0], Buffer[1], Buffer[2], Buffer[3]),
+        4 => new RectOffset(Buf[0], Buf[1], Buf[2], Buf[3]),
         _ => default
       };
     }

@@ -1,27 +1,28 @@
 using UnityEngine;
 using VYaml.Emitter;
 using VYaml.Parser;
+using VYaml.Serialization.Unity.Formatters.Base.Matrix;
 
 namespace VYaml.Serialization.Unity.Formatters.Math
 {
-  public class Matrix4x4Formatter : IYamlFormatter<Matrix4x4>
+  public class Matrix4x4Formatter : MatrixBaseFormatter<Matrix4x4, Vector4>
   {
     public static readonly Matrix4x4Formatter Instance = new();
 
-    public void Serialize(ref Utf8YamlEmitter emitter, Matrix4x4 value, YamlSerializationContext context)
+    public Matrix4x4Formatter() : base(4)
     {
-      emitter.BeginSequence();
-      for (var i = 0; i < 4; i++)
-      {
-        emitter.BeginSequence(SequenceStyle.Flow);
-        for (var j = 0; j < 4; j++) emitter.WriteFloat(value[i * 4 + j]);
-        emitter.EndSequence();
-      }
-
-      emitter.EndSequence();
     }
 
-    public Matrix4x4 Deserialize(ref YamlParser parser, YamlDeserializationContext context)
+    public override void Serialize(ref Utf8YamlEmitter emitter, Matrix4x4 value, YamlSerializationContext context)
+    {
+      Buf[0] = value.GetColumn(0);
+      Buf[1] = value.GetColumn(1);
+      Buf[2] = value.GetColumn(2);
+      Buf[3] = value.GetColumn(3);
+      WriteArray(ref emitter, context);
+    }
+
+    public override Matrix4x4 Deserialize(ref YamlParser parser, YamlDeserializationContext context)
     {
       if (parser.IsNullScalar())
       {
@@ -29,19 +30,12 @@ namespace VYaml.Serialization.Unity.Formatters.Math
         return default;
       }
 
-      var value = new Matrix4x4();
-      parser.ReadWithVerify(ParseEventType.SequenceStart);
-
-      for (var i = 0; i < 4; i++)
+      var i = ReadScalarAsArray(ref parser, context);
+      return i switch
       {
-        parser.ReadWithVerify(ParseEventType.SequenceStart);
-        for (var j = 0; j < 4; j++) value[i * 4 + j] = parser.ReadScalarAsFloat();
-        parser.ReadWithVerify(ParseEventType.SequenceEnd);
-      }
-
-      parser.ReadWithVerify(ParseEventType.SequenceEnd);
-
-      return value;
+        4 => new Matrix4x4(Buf[0], Buf[1], Buf[2], Buf[3]),
+        _ => default
+      };
     }
   }
 }

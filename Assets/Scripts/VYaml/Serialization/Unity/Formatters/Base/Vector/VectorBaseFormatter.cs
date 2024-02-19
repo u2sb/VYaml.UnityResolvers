@@ -5,11 +5,11 @@ namespace VYaml.Serialization.Unity.Formatters.Base.Vector
 {
   public abstract class VectorBaseFormatter<T, TU> : IYamlFormatter<T>
   {
-    protected readonly TU[] Buffer;
+    protected readonly TU[] Buf;
 
     protected VectorBaseFormatter(int l)
     {
-      Buffer = new TU[l];
+      Buf = new TU[l];
     }
 
     public abstract void Serialize(ref Utf8YamlEmitter emitter, T value, YamlSerializationContext context);

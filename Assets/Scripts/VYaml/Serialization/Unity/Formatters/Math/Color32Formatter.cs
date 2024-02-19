@@ -15,10 +15,10 @@ namespace VYaml.Serialization.Unity.Formatters.Math
 
     public override void Serialize(ref Utf8YamlEmitter emitter, Color32 value, YamlSerializationContext context)
     {
-      Buffer[0] = value.r;
-      Buffer[1] = value.g;
-      Buffer[2] = value.b;
-      Buffer[3] = value.a;
+      Buf[0] = value.r;
+      Buf[1] = value.g;
+      Buf[2] = value.b;
+      Buf[3] = value.a;
       WriteArrayWithFlowStyle(ref emitter);
     }
 
@@ -34,7 +34,7 @@ namespace VYaml.Serialization.Unity.Formatters.Math
 
       return i switch
       {
-        4 => new Color32(Buffer[0], Buffer[1], Buffer[2], Buffer[3]),
+        4 => new Color32(Buf[0], Buf[1], Buf[2], Buf[3]),
         _ => default
       };
     }

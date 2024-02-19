@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
+using Unity.Mathematics;
 using UnityEngine;
 using VYaml.Serialization;
 using Random = UnityEngine.Random;
@@ -144,19 +145,14 @@ namespace Tests
     [Test]
     public void VYamlMatrix4x4Tester()
     {
-      var data0 = new Dictionary<string, Matrix4x4>
-      {
-        {
-          nameof(Matrix4x4),
+      var data0 = new Matrix4x4
+      (
+        Random.insideUnitSphere * 100,
+        Random.insideUnitSphere * 100,
+        Random.insideUnitSphere * 100,
+        Random.insideUnitSphere * 100
+      );
 
-          new Matrix4x4(
-            Random.insideUnitSphere * 100,
-            Random.insideUnitSphere * 100,
-            Random.insideUnitSphere * 100,
-            Random.insideUnitSphere * 100
-          )
-        }
-      };
       Test(data0);
     }
 
@@ -267,6 +263,17 @@ namespace Tests
       var data1 = YamlSerializer.Deserialize<Ulid>(Encoding.UTF8.GetBytes(s.ToGuid().ToString()));
       Debug.Log(s);
       Debug.Log(data1);
+    }
+
+    [Test]
+    public void VYamlFloat234Tester()
+    {
+      var data0 = new Tuple<float2, float3, float4>(
+        new float2(Random.value, Random.value),
+        new float3(Random.value, Random.value, Random.value),
+        new float4(Random.value, Random.value, Random.value, Random.value)
+        );
+      Test(data0);
     }
 
     private void Test<T>(T data0)

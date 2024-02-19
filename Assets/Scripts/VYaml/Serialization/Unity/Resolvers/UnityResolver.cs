@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Unity.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 using VYaml.Serialization.Unity.Formatters;
 using VYaml.Serialization.Unity.Formatters.Geometry;
@@ -11,6 +12,10 @@ using VYaml.Serialization.Unity.Formatters.Math;
 using VYaml.Serialization.Unity.Formatters.NativeArray;
 #if ENABLE_ULID
 using VYaml.Serialization.Unity.Formatters.Ulid;
+#endif
+
+#if ENABLE_MATHEMATICS
+using VYaml.Serialization.Unity.Formatters.Mathematics;
 #endif
 
 namespace VYaml.Serialization.Unity.Resolvers
@@ -68,7 +73,16 @@ namespace VYaml.Serialization.Unity.Resolvers
 
 #if ENABLE_ULID
       { typeof(Ulid), UlidFormatter.Instance },
-      { typeof(Ulid?), new StaticNullableFormatter<Ulid>(UlidFormatter.Instance) }
+      { typeof(Ulid?), new StaticNullableFormatter<Ulid>(UlidFormatter.Instance) },
+#endif
+
+#if ENABLE_MATHEMATICS
+      { typeof(float2), Float2Formatter.Instance },
+      { typeof(float3), Float3Formatter.Instance },
+      { typeof(float4), Float4Formatter.Instance },
+      { typeof(int2), Int2Formatter.Instance },
+      { typeof(int3), Int3Formatter.Instance },
+      { typeof(int4), Int4Formatter.Instance },
 #endif
     };
 

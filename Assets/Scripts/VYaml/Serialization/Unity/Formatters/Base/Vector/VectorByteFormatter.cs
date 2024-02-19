@@ -4,26 +4,16 @@ using VYaml.Parser;
 
 namespace VYaml.Serialization.Unity.Formatters.Base.Vector
 {
-  public class VectorByteFormatter<T> : VectorBaseFormatter<T, byte>
+  public abstract class VectorByteFormatter<T> : VectorBaseFormatter<T, byte>
   {
     protected VectorByteFormatter(int l) : base(l)
     {
     }
 
-    public override void Serialize(ref Utf8YamlEmitter emitter, T value, YamlSerializationContext context)
-    {
-      throw new NotImplementedException();
-    }
-
-    public override T Deserialize(ref YamlParser parser, YamlDeserializationContext context)
-    {
-      throw new NotImplementedException();
-    }
-
     protected override void WriteArrayWithFlowStyle(ref Utf8YamlEmitter emitter)
     {
       emitter.BeginSequence(SequenceStyle.Flow);
-      foreach (var b in Buffer) emitter.WriteInt32(b);
+      foreach (var b in Buf) emitter.WriteInt32(b);
       emitter.EndSequence();
     }
 
@@ -32,9 +22,9 @@ namespace VYaml.Serialization.Unity.Formatters.Base.Vector
       var i = 0;
       parser.ReadWithVerify(ParseEventType.SequenceStart);
       while (!parser.End && parser.CurrentEventType != ParseEventType.SequenceEnd)
-        if (i < Buffer.Length)
+        if (i < Buf.Length)
         {
-          Buffer[i] = checked((byte)parser.ReadScalarAsUInt32());
+          Buf[i] = checked((byte)parser.ReadScalarAsUInt32());
           i++;
         }
         else

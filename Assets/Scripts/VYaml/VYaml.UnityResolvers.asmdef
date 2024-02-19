@@ -3,7 +3,8 @@
     "rootNamespace": "",
     "references": [
         "VYaml.Core",
-        "Ulid"
+        "Ulid",
+        "Unity.Mathematics"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -17,6 +18,11 @@
             "name": "com.cysharp.ulid",
             "expression": "",
             "define": "ENABLE_ULID"
+        },
+        {
+            "name": "com.unity.mathematics",
+            "expression": "",
+            "define": "ENABLE_MATHEMATICS"
         }
     ],
     "noEngineReferences": false
