@@ -19,14 +19,16 @@ namespace Templates
     private static readonly string[] IndexNames = { "x", "y", "z", "w" };
     private static readonly string[] MatrixIndexNames = { "c0", "c1", "c2", "c3" };
 
-    private static readonly string[] Names = { "Bool", "Double", "Float", "Int", "UInt" };
+    private static readonly string[] VectorNames = { "Bool", "Double", "Float", "Half", "Int", "UInt" };
+    private static readonly string[] MatrixNames = { "Bool", "Double", "Float", "Int", "UInt" };
+
 
     [MenuItem("VYaml/Unity/CreateVector")]
     public static void CreateVector()
     {
       var d0 = new StringBuilder();
 
-      foreach (var name in Names)
+      foreach (var name in VectorNames)
         for (var i = 2; i <= 4; i++)
         {
           d0.AppendLine($"{{ typeof({name.ToLower()}{i}), {name}{i}Formatter.Instance }},");
@@ -46,7 +48,7 @@ namespace Templates
     {
       var d0 = new StringBuilder();
 
-      foreach (var name in Names)
+      foreach (var name in MatrixNames)
         for (var i = 2; i <= 4; i++)
         for (var j = 2; j <= 4; j++)
         {

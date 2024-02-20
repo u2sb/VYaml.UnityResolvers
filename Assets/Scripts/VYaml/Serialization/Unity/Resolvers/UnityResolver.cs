@@ -102,6 +102,12 @@ namespace VYaml.Serialization.Unity.Resolvers
       { typeof(float3?), new StaticNullableFormatter<float3>(Float3Formatter.Instance) },
       { typeof(float4), Float4Formatter.Instance },
       { typeof(float4?), new StaticNullableFormatter<float4>(Float4Formatter.Instance) },
+      { typeof(half2), Half2Formatter.Instance },
+      { typeof(half2?), new StaticNullableFormatter<half2>(Half2Formatter.Instance) },
+      { typeof(half3), Half3Formatter.Instance },
+      { typeof(half3?), new StaticNullableFormatter<half3>(Half3Formatter.Instance) },
+      { typeof(half4), Half4Formatter.Instance },
+      { typeof(half4?), new StaticNullableFormatter<half4>(Half4Formatter.Instance) },
       { typeof(int2), Int2Formatter.Instance },
       { typeof(int2?), new StaticNullableFormatter<int2>(Int2Formatter.Instance) },
       { typeof(int3), Int3Formatter.Instance },
@@ -234,20 +240,20 @@ namespace VYaml.Serialization.Unity.Resolvers
         else
         {
           var rank = type.GetArrayRank();
-          switch (rank)
-          {
-            // case 2:
-            //     formatterType = typeof(TwoDimensionalArrayFormatter<>).MakeGenericType(type.GetElementType()!);
-            //     break;
-            // case 3:
-            //     formatterType = typeof(ThreeDimensionalArrayFormatter<>).MakeGenericType(type.GetElementType()!);
-            //     break;
-            // case 4:
-            //     formatterType = typeof(FourDimensionalArrayFormatter<>).MakeGenericType(type.GetElementType()!);
-            //     break;
-            // default:
-            //     break; // not supported
-          }
+          //switch (rank)
+          //{
+          // case 2:
+          //     formatterType = typeof(TwoDimensionalArrayFormatter<>).MakeGenericType(type.GetElementType()!);
+          //     break;
+          // case 3:
+          //     formatterType = typeof(ThreeDimensionalArrayFormatter<>).MakeGenericType(type.GetElementType()!);
+          //     break;
+          // case 4:
+          //     formatterType = typeof(FourDimensionalArrayFormatter<>).MakeGenericType(type.GetElementType()!);
+          //     break;
+          // default:
+          //     break; // not supported
+          //}
         }
       }
       else if (type.IsEnum)
