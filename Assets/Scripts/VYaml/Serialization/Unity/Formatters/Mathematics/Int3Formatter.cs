@@ -41,5 +41,4 @@ namespace VYaml.Serialization.Unity.Formatters.Mathematics
     }
   }
 }
-
 #endif

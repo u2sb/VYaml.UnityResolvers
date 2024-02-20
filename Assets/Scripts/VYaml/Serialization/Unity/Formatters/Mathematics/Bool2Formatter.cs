@@ -7,23 +7,22 @@ using VYaml.Serialization.Unity.Formatters.Base.Vector;
 
 namespace VYaml.Serialization.Unity.Formatters.Mathematics
 {
-  public class Float3Formatter : VectorFloatFormatter<float3>
+  public class Bool2Formatter : VectorBoolFormatter<bool2>
   {
-    public static readonly Float3Formatter Instance = new();
+    public static readonly Bool2Formatter Instance = new();
 
-    public Float3Formatter() : base(3)
+    public Bool2Formatter() : base(2)
     {
     }
 
-    public override void Serialize(ref Utf8YamlEmitter emitter, float3 value, YamlSerializationContext context)
+    public override void Serialize(ref Utf8YamlEmitter emitter, bool2 value, YamlSerializationContext context)
     {
       Buf[0] = value.x;
       Buf[1] = value.y;
-      Buf[2] = value.z;
       WriteArrayWithFlowStyle(ref emitter);
     }
 
-    public override float3 Deserialize(ref YamlParser parser, YamlDeserializationContext context)
+    public override bool2 Deserialize(ref YamlParser parser, YamlDeserializationContext context)
     {
       if (parser.IsNullScalar())
       {
@@ -35,7 +34,7 @@ namespace VYaml.Serialization.Unity.Formatters.Mathematics
 
       return i switch
       {
-        3 => new float3(Buf[0], Buf[1], Buf[2]),
+        2 => new bool2(Buf[0], Buf[1]),
         _ => default
       };
     }

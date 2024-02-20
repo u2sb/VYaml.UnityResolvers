@@ -3,16 +3,16 @@ using VYaml.Parser;
 
 namespace VYaml.Serialization.Unity.Formatters.Base.Vector
 {
-  public abstract class VectorIntFormatter<T> : VectorBaseFormatter<T, int>
+  public abstract class VectorUIntFormatter<T> : VectorBaseFormatter<T, uint>
   {
-    protected VectorIntFormatter(int l) : base(l)
+    protected VectorUIntFormatter(int l) : base(l)
     {
     }
 
     protected override void WriteArrayWithFlowStyle(ref Utf8YamlEmitter emitter)
     {
       emitter.BeginSequence(SequenceStyle.Flow);
-      foreach (var b in Buf) emitter.WriteInt32(b);
+      foreach (var b in Buf) emitter.WriteUInt32(b);
       emitter.EndSequence();
     }
 
@@ -23,7 +23,7 @@ namespace VYaml.Serialization.Unity.Formatters.Base.Vector
       while (!parser.End && parser.CurrentEventType != ParseEventType.SequenceEnd)
         if (i < Buf.Length)
         {
-          Buf[i] = parser.ReadScalarAsInt32();
+          Buf[i] = parser.ReadScalarAsUInt32();
           i++;
         }
         else

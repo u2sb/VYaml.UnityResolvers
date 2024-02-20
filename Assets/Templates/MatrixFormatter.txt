@@ -1,0 +1,40 @@
+#if ENABLE_MATHEMATICS
+using Unity.Mathematics;
+using VYaml.Emitter;
+using VYaml.Parser;
+using VYaml.Serialization.Unity.Formatters.Base.Matrix;
+
+namespace VYaml.Serialization.Unity.Formatters.Mathematics
+{
+  public class {NAME}{RC}x{CC}Formatter : MatrixBaseFormatter<{NAME_LOW}{RC}x{CC}, {NAME_LOW}{RC}>
+  {
+    public static readonly {NAME}{RC}x{CC}Formatter Instance = new();
+
+    public {NAME}{RC}x{CC}Formatter() : base({CC})
+    {
+    }
+
+    public override void Serialize(ref Utf8YamlEmitter emitter, {NAME_LOW}{RC}x{CC} value, YamlSerializationContext context)
+    {
+{BLOCK0}
+      WriteArray(ref emitter, context);
+    }
+
+    public override {NAME_LOW}{RC}x{CC} Deserialize(ref YamlParser parser, YamlDeserializationContext context)
+    {
+      if (parser.IsNullScalar())
+      {
+        parser.Read();
+        return default;
+      }
+
+      var i = ReadScalarAsArray(ref parser, context);
+      return i switch
+      {
+        {CC} => new {NAME_LOW}{RC}x{CC}({BLOCK1}),
+        _ => default
+      };
+    }
+  }
+}
+#endif
