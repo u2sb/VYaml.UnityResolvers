@@ -145,13 +145,29 @@ namespace Tests
     [Test]
     public void VYamlMatrix4x4Tester()
     {
-      var data0 = new Matrix4x4
-      (
-        Random.insideUnitSphere * 100,
-        Random.insideUnitSphere * 100,
-        Random.insideUnitSphere * 100,
-        Random.insideUnitSphere * 100
-      );
+      var data0 = new Dictionary<string, Matrix4x4[]>
+      {
+        {
+          nameof(Matrix4x4),
+          new[]
+          {
+            new Matrix4x4
+            (
+              Random.insideUnitSphere * 100,
+              Random.insideUnitSphere * 100,
+              Random.insideUnitSphere * 100,
+              Random.insideUnitSphere * 100
+            ),
+            new Matrix4x4
+            (
+              Random.insideUnitSphere * 100,
+              Random.insideUnitSphere * 100,
+              Random.insideUnitSphere * 100,
+              Random.insideUnitSphere * 100
+            )
+          }
+        }
+      };
 
       Test(data0);
     }
@@ -272,7 +288,7 @@ namespace Tests
         new float2(Random.value, Random.value),
         new float3(Random.value, Random.value, Random.value),
         new float4(Random.value, Random.value, Random.value, Random.value)
-        );
+      );
       Test(data0);
     }
 

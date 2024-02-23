@@ -1,11 +1,11 @@
 {
   "name": "com.u2sb.vyaml.unity.resolvers",
   "displayName": "VYaml.UnityResolvers",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "unity": "2021.3",
   "description": "The UnityResolvers for VYaml",
   "dependencies": {
-    "jp.hadashikick.vyaml": "0.24.0"
+    "jp.hadashikick.vyaml": "0.24.1"
   },
   "keywords": [
     "yaml",
