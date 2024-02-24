@@ -8,6 +8,7 @@ namespace VYaml.Serialization.Unity
   {
 #if !VYAML_UNITYRESOLVER_NOTAUTOINIT
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+#endif
 #if UNITY_EDITOR
     [InitializeOnLoadMethod]
 #endif
@@ -19,6 +20,5 @@ namespace VYaml.Serialization.Unity
         UnityResolver.Instance
       });
     }
-#endif
   }
 }
