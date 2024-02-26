@@ -2,6 +2,7 @@ using System;
 using Unity.Collections;
 using VYaml.Emitter;
 using VYaml.Parser;
+using VYaml.Serialization.Unity.Formatters.Base;
 
 namespace VYaml.Serialization.Unity.Formatters.NativeArray
 {

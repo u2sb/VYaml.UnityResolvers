@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using VYaml.Emitter;
 using VYaml.Parser;
 
-namespace VYaml.Serialization.Unity.Formatters
+namespace VYaml.Serialization.Unity.Formatters.Base
 {
   public class InterfaceEnumerableFormatter<TR, T>
     : IYamlFormatter<TR?> where TR : IEnumerable<T>

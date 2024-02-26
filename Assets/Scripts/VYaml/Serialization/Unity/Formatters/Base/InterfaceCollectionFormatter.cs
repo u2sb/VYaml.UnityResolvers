@@ -1,7 +1,8 @@
+#nullable enable
 using System.Collections.Generic;
 using VYaml.Parser;
 
-namespace VYaml.Serialization.Unity.Formatters
+namespace VYaml.Serialization.Unity.Formatters.Base
 {
   public class InterfaceCollectionFormatter<TR, T>
     : InterfaceEnumerableFormatter<TR, T> where TR : class, ICollection<T>, new()

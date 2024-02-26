@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine;
-using VYaml.Serialization.Unity.Formatters;
 using VYaml.Serialization.Unity.Formatters.Geometry;
 using VYaml.Serialization.Unity.Formatters.Graphics;
 using VYaml.Serialization.Unity.Formatters.Hash;
@@ -217,8 +216,6 @@ namespace VYaml.Serialization.Unity.Resolvers
 
     public static readonly Dictionary<Type, Type> KnownGenericTypes = new()
     {
-      { typeof(HashSet<>), typeof(HashSetFormatter<>) },
-
       { typeof(NativeArray<>), typeof(NativeArrayFormatter<>) }
     };
 

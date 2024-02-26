@@ -128,13 +128,17 @@ namespace Tests
             {
               width = (int)(Random.value * 100),
               height = (int)(Random.value * 100),
+#pragma warning disable CS0618 // Type or member is obsolete
               refreshRate = (int)(Random.value * 100)
+#pragma warning restore CS0618 // Type or member is obsolete
             },
             new Resolution
             {
               width = (int)(Random.value * 100),
               height = (int)(Random.value * 100),
+#pragma warning disable CS0618 // Type or member is obsolete
               refreshRate = (int)(Random.value * 100)
+#pragma warning restore CS0618 // Type or member is obsolete
             }
           }
         }
