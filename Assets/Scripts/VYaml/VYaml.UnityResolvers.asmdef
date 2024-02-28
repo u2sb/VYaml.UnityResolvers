@@ -17,12 +17,12 @@
         {
             "name": "com.cysharp.ulid",
             "expression": "",
-            "define": "ENABLE_ULID"
+            "define": "VYAML_UNITY_RESOLVERS_ENABLE_ULID"
         },
         {
             "name": "com.unity.mathematics",
             "expression": "",
-            "define": "ENABLE_MATHEMATICS"
+            "define": "VYAML_UNITY_RESOLVERS_ENABLE_MATHEMATICS"
         }
     ],
     "noEngineReferences": false

@@ -10,11 +10,11 @@ using VYaml.Serialization.Unity.Formatters.Hash;
 using VYaml.Serialization.Unity.Formatters.Math;
 using VYaml.Serialization.Unity.Formatters.NativeArray;
 using QuaternionFormatter = VYaml.Serialization.Unity.Formatters.Math.QuaternionFormatter;
-#if ENABLE_ULID
+#if VYAML_UNITY_RESOLVERS_ENABLE_ULID
 using VYaml.Serialization.Unity.Formatters.Ulid;
 #endif
 
-#if ENABLE_MATHEMATICS
+#if VYAML_UNITY_RESOLVERS_ENABLE_MATHEMATICS
 using VYaml.Serialization.Unity.Formatters.Mathematics;
 #endif
 
@@ -71,12 +71,12 @@ namespace VYaml.Serialization.Unity.Resolvers
       { typeof(NativeArray<byte>), NativeByteArrayFormatter.Instance },
       { typeof(NativeArray<byte>?), new StaticNullableFormatter<NativeArray<byte>>(NativeByteArrayFormatter.Instance) },
 
-#if ENABLE_ULID
+#if VYAML_UNITY_RESOLVERS_ENABLE_ULID
       { typeof(Ulid), UlidFormatter.Instance },
       { typeof(Ulid?), new StaticNullableFormatter<Ulid>(UlidFormatter.Instance) },
 #endif
 
-#if ENABLE_MATHEMATICS
+#if VYAML_UNITY_RESOLVERS_ENABLE_MATHEMATICS
       { typeof(quaternion), Formatters.Mathematics.QuaternionFormatter.Instance },
       {
         typeof(quaternion?),

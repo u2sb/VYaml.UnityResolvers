@@ -1,4 +1,4 @@
-#if ENABLE_MATHEMATICS
+#if VYAML_UNITY_RESOLVERS_ENABLE_MATHEMATICS
 using Unity.Mathematics;
 using VYaml.Emitter;
 using VYaml.Parser;

@@ -1,4 +1,4 @@
-#if ENABLE_ULID
+#if VYAML_UNITY_RESOLVERS_ENABLE_ULID
 using System;
 using System.Buffers.Text;
 using VYaml.Emitter;
