@@ -5,7 +5,7 @@
   "unity": "2021.3",
   "description": "The UnityResolvers for VYaml",
   "dependencies": {
-    "jp.hadashikick.vyaml": "0.24.1"
+    "jp.hadashikick.vyaml": "0.25.0"
   },
   "keywords": [
     "yaml",
