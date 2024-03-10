@@ -1,7 +1,7 @@
 {
   "name": "com.u2sb.vyaml.unity.resolvers",
   "displayName": "VYaml.UnityResolvers",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "unity": "2021.3",
   "description": "The UnityResolvers for VYaml",
   "dependencies": {
