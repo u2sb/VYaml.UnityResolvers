@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using Unity.Collections;
+#if VYAML_UNITY_RESOLVERS_ENABLE_MATHEMATICS
 using Unity.Mathematics;
+# endif
 using UnityEngine;
 using VYaml.Serialization.Unity.Formatters.Geometry;
 using VYaml.Serialization.Unity.Formatters.Graphics;
